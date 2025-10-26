@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog Post with Comments</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="container">
+        <article class="blog-post">
+            <h1>My Awesome Frontend Blog Post</h1>
+            <p class="post-meta">Published on <span id="post-date">October 26, 2025</span> by **Gemini AI**</p>
+            <p>Welcome to this example blog post! This entire structure, including the comments below, is powered by HTML, CSS, and JavaScript. We're using the browser's **Local Storage** to save and retrieve comments, making the frontend appear dynamic.</p>
+            <p>To build a real-world blog, you would replace the Local Storage logic in `script.js` with calls to an API connected to a server and a database.</p>
+        </article>
+
+        <hr>
+
+        <section class="comments-section">
+            <h2>Comments (<span id="comment-count">0</span>)</h2>
+
+            <form id="comment-form">
+                <input type="text" id="comment-author" placeholder="Your Name" required>
+                <textarea id="comment-text" placeholder="Add a comment..." required></textarea>
+                <button type="submit">Submit Comment</button>
+            </form>
+
+            <div id="comments-list">
+                </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

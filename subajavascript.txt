@@ -1,0 +1,97 @@
+// A unique key for this blog post's comments in Local Storage
+const STORAGE_KEY = 'blogPostComments';
+
+// DOM elements
+const commentForm = document.getElementById('comment-form');
+const commentsList = document.getElementById('comments-list');
+const commentCountSpan = document.getElementById('comment-count');
+
+/**
+ * Loads comments from Local Storage.
+ * @returns {Array} An array of comment objects.
+ */
+function loadComments() {
+    const commentsJson = localStorage.getItem(STORAGE_KEY);
+    // If no comments are found, return an empty array
+    return commentsJson ? JSON.parse(commentsJson) : [];
+}
+
+/**
+ * Saves the current array of comments to Local Storage.
+ * @param {Array} comments - The array of comment objects to save.
+ */
+function saveComments(comments) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(comments));
+}
+
+/**
+ * Renders the comments list on the page.
+ */
+function renderComments() {
+    const comments = loadComments();
+    commentsList.innerHTML = ''; // Clear existing comments
+
+    // Update the comment count display
+    commentCountSpan.textContent = comments.length;
+
+    // Iterate through comments and create HTML elements for each
+    comments.forEach(comment => {
+        const commentDiv = document.createElement('div');
+        commentDiv.className = 'comment-item';
+
+        const authorPara = document.createElement('p');
+        authorPara.className = 'comment-author';
+        authorPara.textContent = comment.author;
+
+        const textPara = document.createElement('p');
+        textPara.className = 'comment-text';
+        textPara.textContent = comment.text;
+
+        commentDiv.appendChild(authorPara);
+        commentDiv.appendChild(textPara);
+        commentsList.appendChild(commentDiv);
+    });
+}
+
+/**
+ * Handles the comment form submission.
+ * @param {Event} event - The form submission event.
+ */
+function handleCommentSubmit(event) {
+    event.preventDefault(); // Stop the form from performing a full page refresh
+
+    const authorInput = document.getElementById('comment-author');
+    const textInput = document.getElementById('comment-text');
+
+    const newComment = {
+        author: authorInput.value.trim() || 'Anonymous',
+        text: textInput.value.trim(),
+        timestamp: new Date().toISOString()
+    };
+
+    if (newComment.text) {
+        // 1. Load existing comments
+        const comments = loadComments();
+        
+        // 2. Add the new comment (prepended for blog style)
+        comments.unshift(newComment);
+        
+        // 3. Save the updated list
+        saveComments(comments);
+        
+        // 4. Re-render the comments section
+        renderComments();
+
+        // 5. Clear the form for the next comment
+        authorInput.value = '';
+        textInput.value = '';
+    } else {
+        alert('Please enter a comment before submitting.');
+    }
+}
+
+// 1. Add event listener to the form
+commentForm.addEventListener('submit', handleCommentSubmit);
+
+// 2. Initial load and render of comments when the page loads
+renderComments();
