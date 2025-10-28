@@ -97,8 +97,7 @@ Git
 
 Clone the Repository
 
-git clone https://github.com/your-username/blog-site.git
-cd blog-site
+git clone https://github.com/subanandhini070-maker/suba-project.git
 
 
 Install Dependencies
@@ -314,4 +313,4 @@ For questions, suggestions, or collaboration opportunities:
 Author: E.SUBA NANDHINI
 Email: subanandhini070@gmail.com
 
-GitHub: 
+GitHub: https://github.com/subanandhini070-maker/suba-project.git
